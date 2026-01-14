@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:16
+    container_name: collabboard-db
+    environment:
+      POSTGRES_DB: collabboard
+      POSTGRES_USER: collab
+      POSTGRES_PASSWORD: collab
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks: [appnet]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U collab -d collabboard"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    image: prajeev232/collabboard-backend:latest
+    container_name: collabboard-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/collabboard
+      SPRING_DATASOURCE_USERNAME: collab
+      SPRING_DATASOURCE_PASSWORD: collab
+
+      JWT_SECRET: "${JWT_SECRET}"
+      BREVO_SMTP_KEY: "${BREVO_SMTP_KEY}"
+
+      SPRING_MAIL_USERNAME: "${SPRING_MAIL_USERNAME}"
+      APP_MAIL_FROM: "${APP_MAIL_FROM}"
+      APP_FRONTEND_BASE_URL: "${APP_FRONTEND_BASE_URL}"
+
+      SPRING_JPA_SHOW_SQL: "false"
+    ports:
+      - "8080:8080"   # change back to 127.0.0.1 once Nginx is added
+    networks: [appnet]
+    restart: unless-stopped
+
+networks:
+  appnet:
+
+volumes:
+  pgdata:

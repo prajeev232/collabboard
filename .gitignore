@@ -1,0 +1,17 @@
+@"
+# env / secrets
+.env
+.env.*
+backend/.env
+backend/.env.*
+
+# IDE
+.idea/
+backend/.idea/
+*.iml
+collabboardpair.pem
+
+# build output
+**/target/
+**/out/
+"@ | Out-File -Encoding utf8 .gitignore
