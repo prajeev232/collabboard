@@ -1,4 +1,4 @@
-import type { AnyBoardEvent, CardMovedData } from "../../realtime/types";
+import type { AnyBoardEvent } from "../../realtime/types";
 import type { BoardSnapshot, Card } from "../types";
 
 const upsertInCardList = (cards: Card[], card: Card) => {
@@ -39,7 +39,7 @@ export const applyEvent = (state: BoardSnapshot, event: AnyBoardEvent): BoardSna
     }
 
     if (event.type === "CARD_MOVED") {
-        const { card, fromListId } = event.data as CardMovedData;
+        const { card, fromListId } = event.data;
 
         const fromCards = next.cardsByListId[fromListId] ?? [];
         next.cardsByListId[fromListId] = removeCardFromList(fromCards, card.id);

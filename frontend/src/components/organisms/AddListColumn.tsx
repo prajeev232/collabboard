@@ -59,6 +59,7 @@ const AddListColumn = ({ onSubmit }: Props) => {
                 await onSubmit(v);
                 setOpen(false);
               }}
+              disabled={false}
             />
           </Paper>
         </Popper>

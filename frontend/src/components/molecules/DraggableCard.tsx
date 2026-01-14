@@ -4,7 +4,6 @@ import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { Box, IconButton } from "@mui/material";
 import CardPreview from "./CardPreview";
 import type { CardPriority } from "../../api/cards";
-import { red } from "@mui/material/colors";
 
 type Props = {
   cardId: string;

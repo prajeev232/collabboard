@@ -15,7 +15,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { clearAccessToken } from "../../api/http";
-import { useNavigate } from "react-router-dom";
 
 const AVATAR_KEY = "collab_avatar_data_url";
 
@@ -39,8 +38,6 @@ type Props = {
 };
 
 const ProfileMenu = ({ label, loginHref = "/login", onSettings }: Props) => {
-  const nav = useNavigate();
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
